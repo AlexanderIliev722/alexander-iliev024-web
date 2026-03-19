@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Александър Илиев</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css">
+</head>
+
+<body>
+
+    <nav id="main-nav" aria-label="Основна навигация">
+        <button class="nav-btn" data-tab="cover-letter" type="button">Cover Letter</button>
+        <button class="nav-btn" data-tab="resume" type="button">Biography / Resume</button>
+        <button class="nav-btn" data-tab="architecture" type="button">How I Built This</button>
+    </nav>
+
+    <main class="container">
+
+        <!-- ==================== COVER LETTER ==================== -->
+        <div id="cover-letter" class="section">
+            <h1><span class="prompt">guest@ibm-server:~$</span> cat cover_letter.txt</h1>
+            <h2>Уважаеми екип на IBM,</h2>
+            <p>Няма да изразходвам излишни байтове, за да обяснявам колко голяма е компанията ви и защо всеки прохождащ
+                инженер иска да работи при вас, защото вие вече го знаете. Затова реших да ви спестя времето за четене
+                на клишета и да преминем директно по същество.</p>
+
+            <h2><span class="keyword">01.</span> Защо избрах DevOps / Software Development?</h2>
+            <p>Страстта ми е да разбирам как системите работят "под капака". Интересувам се от автоматизация,
+                инфраструктура и решаване на сложни технически проблеми. За мен IBM е перфектната среда да усвоя
+                най-добрите CI/CD практики и да работя с Linux и Cloud технологии на световно ниво.</p>
+
+            <h2><span class="keyword">02.</span> Какво мога да предложа?</h2>
+            <ul>
+                <li><strong>Аналитично мислене:</strong> Умея да дебъгвам и да проследявам логиката на процесите.</li>
+                <li><strong>Проактивност:</strong> Вместо стандартен документ, реших да демонстрирам базови умения като
+                    хостна това сайтче чрез Netlify.</li>
+                <li><strong>Нагласа за автоматизация:</strong> Вярвам, че ако едно системно действие трябва да се
+                    повтори повече от два пъти, то трябва да бъде автоматизирано.</li>
+                <li><strong>Гъвкавост:</strong> Като студент, опцията ви за <strong>непълно работно време (20
+                        часа)</strong> до Май месец е идеална за мен. След това преминавам на пълни обороти.</li>
+            </ul>
+
+            <h1 style="margin-top: 50px;"><span class="prompt">guest@ibm-server:~$</span> ./initiate_contact.sh</h1>
+
+            <div
+                style="display: flex; align-items: center; margin-top: 15px; border-bottom: 1px dashed #393939; padding-bottom: 5px;">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f447/512.gif" alt="Finger Down" width="40"
+                    height="40" style="margin-right: 15px;" loading="lazy">
+                <h2 style="margin: 0; border-bottom: none; padding: 0;">
+                    <span class="keyword">03.</span> Пишете ми!
+                </h2>
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f447/512.gif" alt="Finger Down" width="40"
+                    height="40" style="margin-left: 15px;" loading="lazy">
+            </div>
+
+            <!-- Contact form -->
+            <div id="contact-area">
+                <form id="contact" name="contact" action="https://formspree.io/f/xgonrgrw" method="POST">
+                    <label for="field-name">Вашето име / Отдел:</label>
+                    <input type="text" id="field-name" name="name" required placeholder="напр. HR Team">
+                    <label for="field-email">Вашият Email:</label>
+                    <input type="email" id="field-email" name="email" required placeholder="email@gmail.com">
+                    <label for="field-message">Съобщение / Покана за интервю:</label>
+                    <textarea id="field-message" name="message" rows="4" required
+                        placeholder="Здравейте, искаме да ви поканим на интервю..."></textarea>
+                    <button type="submit" class="submit-btn">> ./send_message.sh</button>
+                </form>
+                <div id="success-message"
+                    style="display: none; border: 1px solid #009d9a; padding: 20px; background: rgba(0, 157, 154, 0.1); margin-top: 30px; border-radius: 4px;">
+                    <h2 style="color: #009d9a; border: none; margin-top: 0;">[ SUCCESS ]</h2>
+                    <p>Благодаря ви! Съобщението е предадено успешно към сървъра.</p>
+                    <p class="string">Status: 200 OK</p>
+                    <p style="font-size: 0.8rem; color: #8d8d8d;">(Формата ще се появи отново при презареждане или
+                        повторно избиране на таба)</p>
+                </div>
+            </div>
+
+            <img src="white_feather.png" alt="Cover Letter Mascot" class="absolute-image" loading="lazy">
+        </div>
+
+        <!-- ==================== RESUME ==================== -->
+        <div id="resume" class="section">
+            <h1><span class="prompt">guest@ibm-server:~$</span> ./view_resume.sh</h1>
+
+            <h2><span class="keyword">Профил:</span> Александър Илиев</h2>
+            <p>Студент с фокус върху компютърни науки, търсещ развитие в сферата на Автоматизацията, DevOps и
+                поддръжката на облачни инфраструктури. Обучавал се в академиите на SoftUni и DevStyler. Личност със
+                силно желание да приложи знанията си по програмиране, осигуряване на качеството и бази данни в
+                професионална среда. Ангажиран с непрекъснато обучение и преход към Автоматизирано тестване и DevOps
+                интеграция.</p>
+
+            <h2><span class="keyword">Образование</span></h2>
+            <p><strong>Университет:</strong> Технически университет - София<br>
+                <strong>Специалност:</strong> Информационни технологии в индустрията<br>
+                <strong>Очаквано завършване:</strong> 2027
+            </p>
+
+            <h2><span class="keyword">Допълнителни компетенции</span></h2>
+            <p>Отлични комуникативни умения, любопитство, внимание към детайла, организация, способност за работа в
+                екип и готовност за бързо усвояване на нови концепции.</p>
+
+            <h2><span class="keyword">Изтегляне на пълното CV</span></h2>
+            <p>Можете да изтеглите стандартното ми форматирано CV в PDF формат от тук:</p>
+            <a href="https://drive.google.com/file/d/12fGrAMGGYXyuHjdYBS6SnJcnXnZaWo09/view?usp=drive_link"
+                target="_blank" rel="noopener noreferrer" class="download-link">> download_cv.pdf</a>
+        </div>
+
+        <!-- ==================== ARCHITECTURE ==================== -->
+        <div id="architecture" class="section">
+            <h1><span class="prompt">guest@ibm-server:~$</span> ./inspect_architecture.sh</h1>
+            <p>За да демонстрирам практическия си интерес към технологиите, реших да изградя тази кандидатура като
+                мини-проект. Ето какво използвах "под капака":</p>
+
+            <h2><span class="keyword">01.</span> Integrated Development Environment (IDE)</h2>
+            <ul>
+                <li><strong>Antigravity IDE:</strong> Използвах тази среда за разработка за написването,
+                    форматирането и локалното тестване на кода.</li>
+            </ul>
+
+            <h2><span class="keyword">02.</span> Frontend</h2>
+            <ul>
+                <li><strong>HTML5 &amp; CSS3:</strong> Изграждане на семантичната структура и стилизиране на
+                    потребителския интерфейс. Внедрени са официалните цветове на <em>IBM Carbon Design System</em>
+                    (Dark Theme). Навигацията използва прозрачен "glassmorphism" ефект.</li>
+                <li><strong>Vanilla JavaScript:</strong> Написах лек скрипт за управление на състоянията (DOM
+                    manipulation), който позволява превключване между табовете без презареждане на страницата –
+                    базова концепция за Single Page Applications (SPA). Добавих и съхранение на състоянието чрез
+                    localStorage.</li>
+            </ul>
+
+            <h2><span class="keyword">03.</span> Deployment &amp; DevOps</h2>
+            <ul>
+                <li><strong>GitHub:</strong> Използвах GitHub за контрол на версиите (Version Control) и съхранение на
+                    source кода.</li>
+                <li><strong>Firebase Hosting:</strong> Използвах Firebase за хостинг и deployment на статичния сайт.
+                </li>
+                <li><strong>Firebase Firestore:</strong> Интегрирах формата за контакт чрез Google Firebase без да
+                    използвам собствен бекенд сървър. Всяко съобщение се записва в реално време в облачна база данни,
+                    където мога да ги преглеждам.
+                </li>
+                <li><strong>Formspree:</strong> Използвах Formspree за email нотификации. При всяко ново съобщение от
+                    формата, Formspree улавя POST заявките и ги препраща към личния ми имейл.</li>
+            </ul>
+
+            <img src="chibi_boy.png" alt="Architecture Diagram" class="floating-image" loading="lazy">
+        </div>
+
+    </main>
+
+    <!-- Firebase SDK (CDN) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyByOrXmNDkGOJy28xqLrJmgz6-2gWv5_3s",
+            authDomain: "alexander-iliev722-web.firebaseapp.com",
+            projectId: "alexander-iliev722-web",
+            storageBucket: "alexander-iliev722-web.firebasestorage.app",
+            messagingSenderId: "1042460445733",
+            appId: "1:1042460445733:web:c83ed976589ecbdff0c3cc",
+            measurementId: "G-N1577VZNLL"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        // Expose Firestore functions globally for script.js
+        window.firebaseDB = { db, collection, addDoc, serverTimestamp };
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

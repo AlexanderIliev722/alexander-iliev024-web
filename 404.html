@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Файлът не е намерен</title>
+  <style>
+    :root {
+      --bg-dark: #161616;
+      --bg-panel: #262626;
+      --border-color: #393939;
+      --text-main: #f4f4f4;
+      --text-muted: #c6c6c6;
+      --ibm-blue: #0f62fe;
+      --ibm-blue-hover: #0043ce;
+      --ibm-light-blue: #78a9ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .terminal-window {
+      max-width: 700px;
+      width: 90%;
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .terminal-header {
+      background-color: var(--bg-dark);
+      border-bottom: 2px solid var(--ibm-blue);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot-red {
+      background-color: #da1e28;
+    }
+
+    .dot-yellow {
+      background-color: #f1c21b;
+    }
+
+    .dot-green {
+      background-color: #24a148;
+    }
+
+    .terminal-title {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-left: 10px;
+    }
+
+    .terminal-body {
+      padding: 30px;
+    }
+
+    .prompt {
+      color: var(--ibm-light-blue);
+      font-weight: bold;
+    }
+
+    .command {
+      color: var(--text-main);
+    }
+
+    .error-code {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #da1e28;
+      margin: 20px 0 5px;
+      text-shadow: 0 0 20px rgba(218, 30, 40, 0.3);
+    }
+
+    .error-msg {
+      color: #fa4d56;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .info {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin: 15px 0 25px;
+      border-left: 3px solid var(--border-color);
+      padding-left: 15px;
+    }
+
+    .go-home {
+      display: inline-block;
+      background-color: var(--ibm-blue);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .go-home:hover {
+      background-color: var(--ibm-blue-hover);
+      box-shadow: 0 0 15px rgba(15, 98, 254, 0.4);
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 10px;
+      height: 1.2em;
+      background-color: var(--ibm-light-blue);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 5px;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .status-line {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .status-line span {
+      color: #da1e28;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-dot dot-red"></div>
+      <div class="terminal-dot dot-yellow"></div>
+      <div class="terminal-dot dot-green"></div>
+      <span class="terminal-title">bash — 404</span>
+    </div>
+    <div class="terminal-body">
+      <p>
+        <span class="prompt">guest@ibm-server:~$</span>
+        <span class="command"> find /requested-page</span>
+      </p>
+
+      <div class="error-code">404</div>
+      <p class="error-msg">Error: Файлът не е намерен в системата.</p>
+
+      <p class="info">
+        Страницата, която търсите, не съществува или е била преместена.
+        Проверете URL адреса и опитайте отново.
+      </p>
+
+      <p>
+        <span class="prompt">guest@ibm-server:~$</span>
+        <span class="command"> ./go_back_home.sh</span>
+        <span class="cursor-blink"></span>
+      </p>
+
+      <br>
+      <a href="/" class="go-home">> cd /home</a>
+
+      <div class="status-line">
+        <span>EXIT_CODE=404</span> | Process terminated | No matching files found
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
