@@ -1,10 +1,14 @@
 firebase login
 -- for logging into firebase --
 
-
 firebase init
--- for choosing what features i need based on the project functionalities (hosting, functions,contact form, etc.) --
+-- for choosing what features i need based on the project
+ functionalities (hosting, functions,contact form, etc.) --
 
+firebase hosting:channel:deploy my-test
+-- Its used for deploying the project to a test channel,
+ while my real webiste is untouched and if the test one is good and i am satisfied i can deploy
+  the real one to the public --
 
 firebase deploy
 -- for deploying the project to the web --
