@@ -21,22 +21,24 @@
 
         <!-- ==================== COVER LETTER ==================== -->
         <div id="cover-letter" class="section">
-            <h1><span class="prompt">guest@ibm-server:~$</span> cat cover_letter.txt</h1>
-            <h2>Уважаеми екип на IBM,</h2>
+            <h1><span class="prompt">guest@<span class="dynamic-server">company</span>-server:~$</span> cat
+                cover_letter.txt</h1>
+            <h2>Уважаеми екип на <span class="dynamic-company">вашата компания</span>,</h2>
             <p>Няма да изразходвам излишни байтове, за да обяснявам колко голяма е компанията ви и защо всеки прохождащ
                 инженер иска да работи при вас, защото вие вече го знаете. Затова реших да ви спестя времето за четене
                 на клишета и да преминем директно по същество.</p>
 
             <h2><span class="keyword">01.</span> Защо избрах DevOps / Software Development?</h2>
             <p>Страстта ми е да разбирам как системите работят "под капака". Интересувам се от автоматизация,
-                инфраструктура и решаване на сложни технически проблеми. За мен IBM е перфектната среда да усвоя
-                най-добрите CI/CD практики и да работя с Linux и Cloud технологии на световно ниво.</p>
+                инфраструктура и решаване на сложни технически проблеми. За мен <span class="dynamic-company">
+                    вашата компания</span> e перфектната среда да усвоя най-добрите CI/CD практики и да работя с Linux
+                и Cloud технологии на световно ниво.</p>
 
             <h2><span class="keyword">02.</span> Какво мога да предложа?</h2>
             <ul>
                 <li><strong>Аналитично мислене:</strong> Умея да дебъгвам и да проследявам логиката на процесите.</li>
                 <li><strong>Проактивност:</strong> Вместо стандартен документ, реших да демонстрирам базови умения като
-                    хостна това сайтче чрез Netlify.</li>
+                    хостна това сайтче чрез Firebase.</li>
                 <li><strong>Нагласа за автоматизация:</strong> Вярвам, че ако едно системно действие трябва да се
                     повтори повече от два пъти, то трябва да бъде автоматизирано.</li>
                 <li><strong>Гъвкавост:</strong> Като студент, опцията ви за <strong>непълно работно време (20
@@ -83,13 +85,14 @@
 
         <!-- ==================== RESUME ==================== -->
         <div id="resume" class="section">
-            <h1><span class="prompt">guest@ibm-server:~$</span> ./view_resume.sh</h1>
+            <h1><span class="prompt">guest@<span class="dynamic-server">company</span>-server:~$</span> ./view_resume.sh
+            </h1>
 
             <h2><span class="keyword">Профил:</span> Александър Илиев</h2>
-            <p>Студент с фокус върху компютърни науки, търсещ развитие в сферата на Автоматизацията, DevOps и
+            <p>Студент с фокус върху компютърни науки, търсещ развитие в сферата на автоматизацията, DevOps и
                 поддръжката на облачни инфраструктури. Обучавал се в академиите на SoftUni и DevStyler. Личност със
                 силно желание да приложи знанията си по програмиране, осигуряване на качеството и бази данни в
-                професионална среда. Ангажиран с непрекъснато обучение и преход към Автоматизирано тестване и DevOps
+                професионална среда. Ангажиран с непрекъснато обучение и преход към автоматизирано тестване и DevOps
                 интеграция.</p>
 
             <h2><span class="keyword">Образование</span></h2>
@@ -110,7 +113,8 @@
 
         <!-- ==================== ARCHITECTURE ==================== -->
         <div id="architecture" class="section">
-            <h1><span class="prompt">guest@ibm-server:~$</span> ./inspect_architecture.sh</h1>
+            <h1><span class="prompt">guest@<span class="dynamic-server">company</span>-server:~$</span>
+                ./inspect_architecture.sh</h1>
             <p>За да демонстрирам практическия си интерес към технологиите, реших да изградя тази кандидатура като
                 мини-проект. Ето какво използвах "под капака":</p>
 
@@ -157,13 +161,13 @@
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyByOrXmNDkGOJy28xqLrJmgz6-2gWv5_3s",
-            authDomain: "alexander-iliev722-web.firebaseapp.com",
-            projectId: "alexander-iliev722-web",
-            storageBucket: "alexander-iliev722-web.firebasestorage.app",
-            messagingSenderId: "1042460445733",
-            appId: "1:1042460445733:web:c83ed976589ecbdff0c3cc",
-            measurementId: "G-N1577VZNLL"
+            apiKey: "AIzaSyANBps66jFzgRhqt6QcRKW2YcruTdid7S0",
+            authDomain: "alexander-iliev024-web.firebaseapp.com",
+            projectId: "alexander-iliev024-web",
+            storageBucket: "alexander-iliev024-web.firebasestorage.app",
+            messagingSenderId: "123159502093",
+            appId: "1:123159502093:web:6f94769c5cce6116ba2444",
+            measurementId: "G-6VSWK02PL5"
         };
 
         const app = initializeApp(firebaseConfig);

@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "alexander-iliev024-web"
+  },
   "targets": {},
   "etags": {}
 }

@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let companyName = urlParams.get('company');
+
+    if (companyName) {
+        // Правим първата буква главна (напр. "google" -> "Google")
+        const formattedCompanyName = companyName.charAt(0).toUpperCase() + companyName.slice(1);
+
+        // Сменяме името в текста
+        const companySpans = document.querySelectorAll('.dynamic-company');
+        companySpans.forEach(span => span.textContent = formattedCompanyName);
+
+        // Сменяме името в конзолния промпт (правим го с малки букви и махаме интервалите)
+        // напр. "Smart IT" -> "smart-it"
+        const serverName = companyName.toLowerCase().replace(/\s+/g, '-');
+        const serverSpans = document.querySelectorAll('.dynamic-server');
+        serverSpans.forEach(span => span.textContent = serverName);
+    }
+
     const sections = document.querySelectorAll('.section');
     const navBtns = document.querySelectorAll('.nav-btn');
     const contactForm = document.getElementById('contact');

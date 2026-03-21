@@ -1,1 +1,10 @@
+firebase login
+-- for logging into firebase --
+
+
+firebase init
+-- for choosing what features i need based on the project functionalities (hosting, functions,contact form, etc.) --
+
+
 firebase deploy
+-- for deploying the project to the web --
