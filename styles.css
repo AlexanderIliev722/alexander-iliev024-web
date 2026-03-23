@@ -57,7 +57,7 @@ nav {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 40px auto;
     background-color: var(--bg-panel);
     padding: 30px;
