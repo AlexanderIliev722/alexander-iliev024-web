@@ -12,7 +12,7 @@
 <body>
 
     <nav id="main-nav" aria-label="Основна навигация">
-        <button class="nav-btn" data-tab="cover-letter" type="button">Cover Letter</button>
+        <button class="nav-btn active" data-tab="cover-letter" type="button">Cover Letter</button>
         <button class="nav-btn" data-tab="resume" type="button">Biography / Resume</button>
         <button class="nav-btn" data-tab="architecture" type="button">How I Built This</button>
     </nav>
@@ -69,7 +69,7 @@
 
             <!-- Contact form -->
             <div id="contact-area">
-                <form id="contact" name="contact" action="https://formspree.io/f/xgonrgrw" method="POST">
+                <form id="contact">
                     <label for="field-name">Вашето име / Отдел:</label>
                     <input type="text" id="field-name" name="name" required placeholder="напр. HR Team">
                     <label for="field-email">Вашият Email:</label>
@@ -77,6 +77,10 @@
                     <label for="field-message">Съобщение / Покана за интервю:</label>
                     <textarea id="field-message" name="message" rows="4" required
                         placeholder="Здравейте, искаме да ви поканим на интервю..."></textarea>
+                    <div id="ai-status"
+                        style="color: #be95ff; font-size: 0.8rem; margin-top: -5px; margin-bottom: 15px; font-family: monospace;">
+                        [AI Module]: Waiting for input...
+                    </div>
                     <button type="submit" class="submit-btn">> ./send_message.sh</button>
                 </form>
                 <div id="success-message"
@@ -132,10 +136,10 @@
                     форматирането и локалното тестване на кода.</li>
             </ul>
 
-            <h2><span class="keyword">02.</span> Frontend</h2>
+            <h2><span class="keyword">02.</span> Frontend & Edge AI</h2>
             <ul>
-                <li><strong>HTML5 &amp; CSS3:</strong> Изграждане на семантичната структура и стилизиране на
-                    потребителския интерфейс. Внедрени са официалните цветове на <em>IBM Carbon Design System</em>
+                <li><strong>HTML5 & CSS3:</strong> Изграждане на семантичната структура и стилизиране на
+                    потребителския интерфейс. Използвах официалните цветове на <em>IBM Carbon Design System</em>
                     (Dark Theme). Навигацията използва прозрачен "glassmorphism" ефект.</li>
                 <li><strong>Vanilla JavaScript:</strong> Написах лек скрипт за управление на състоянията (DOM
                     manipulation), който позволява превключване между табовете без презареждане на страницата –
@@ -143,12 +147,12 @@
                     localStorage. Също така внедрих логика за <strong>динамично персонализиране</strong> чрез URL
                     параметри, което позволява сайтът да се адаптира в реално време за всяка
                     конкретна компания.</li>
+                <li><strong>Edge AI (NLP):</strong> Интегрирах <strong>Transformers.js</strong>. Сайтът зарежда лек NLP
+                    модел локално в браузъра (DistilBERT), който анализира намерението на съобщението ви в реално време,
+                    преди дори да натиснете "Send".</li>
             </ul>
-
-            <h2><span class="keyword">03.</span> Deployment &amp; DevOps</h2>
+            <h2><span class="keyword">03.</span> Backend & Storage</h2>
             <ul>
-                <li><strong>GitHub:</strong> Използвах GitHub за контрол на версиите (Version Control) и съхранение на
-                    source кода.</li>
                 <li><strong>Firebase Hosting:</strong> Използвах Firebase за хостинг и deployment на статичния сайт.
                 </li>
                 <li><strong>Firebase Firestore:</strong> Интегрирах формата за контакт чрез Google Firebase без да
@@ -156,12 +160,37 @@
                     данни,
                     където мога да ги преглеждам.
                 </li>
-                <li><strong>Formspree:</strong> Използвах Formspree за email нотификации. При всяко ново съобщение от
-                    формата, Formspree улавя POST заявките и ги препраща към личния ми имейл.</li>
+                <li><strong>Google Apps Script:</strong> Написах персонализиран <strong>Serverless бекенд</strong>,
+                    който превръща Google Sheets в база данни. Това ми позволява неограничен брой съобщения и
+                    автоматично архивиране на контактите без външни такси.</li>
             </ul>
+            <h2><span class="keyword">04.</span> AI Automation &amp; DevOps</h2>
+            <ul>
+                <li><strong>Make.com:</strong> Централен оркестратор на работния процес. При всяко
+                    съобщение се активира Webhook, който задвижва верига от логически стъпки.</li>
+                <li><strong>Google Gemini AI:</strong> Използвам <strong>Gemini Pro</strong> за интелигентен анализ на
+                    вашите запитвания и автоматично генериране на професионален имейл-отговор в реално време.</li>
+                <li><strong>GitHub:</strong> Използвах GitHub за контрол на версиите (Version Control) и съхранение на
+                    source кода.</li>
 
+            </ul>
             <img src="chibi_boy.png" alt="Architecture Diagram" class="floating-image" loading="lazy">
+            <div
+                style="margin-top: 30px; border: 1px solid #393939; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.9rem; color: #be95ff;">
+                    <span class="keyword">Note:</span> Тази архитектура е проектирана да бъде <strong>100%
+                        мащабируема</strong> и <strong>напълно автоматизирана</strong>, демонстрирайки умения в Web
+                    Development, QA и DevOps автоматизация.
+                </p>
+            </div>
+
+            <p style="margin-top: 20px; font-family: monospace; font-size: 0.85rem; color: #8d8d8d;">
+                > Ако искате да видите как системата управлява несъществуващи пътища (Грешка 404), просто кликнете на <a
+                    href="/error-test" style="color: #fa4d56; text-decoration: underline;">този линк</a>!
+            </p>
         </div>
+
+
 
     </main>
 
@@ -189,7 +218,7 @@
         window.firebaseDB = { db, collection, addDoc, serverTimestamp };
     </script>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js?v=2"></script>
 </body>
 
 </html>

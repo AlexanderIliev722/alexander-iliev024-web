@@ -192,7 +192,7 @@ textarea:focus {
 .absolute-image {
     position: absolute;
     bottom: -30px;
-    right: -350px;
+    right: -320px;
     max-width: 220px;
 }
 

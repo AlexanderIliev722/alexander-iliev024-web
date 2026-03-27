@@ -126,7 +126,7 @@
     }
 
     .go-home {
-      display: inline-block;
+      display: none;
       background-color: var(--ibm-blue);
       color: #fff;
       text-decoration: none;
@@ -136,6 +136,7 @@
       font-size: 1rem;
       border: none;
       transition: all 0.3s ease;
+      margin-top: 20px;
     }
 
     .go-home:hover {
@@ -176,6 +177,27 @@
     .status-line span {
       color: #da1e28;
     }
+
+    /* Стилизиране на математическото поле */
+    #math-answer {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--ibm-blue);
+      color: var(--ibm-light-blue);
+      font-family: inherit;
+      font-size: 1.1rem;
+      width: 60px;
+      outline: none;
+      margin-left: 10px;
+      text-align: center;
+    }
+
+    #status-msg {
+      font-size: 0.9rem;
+      margin-top: 5px;
+      min-height: 1.2em;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -208,8 +230,62 @@
       </p>
 
       <br>
-      <a href="/" class="go-home">> cd /home</a>
+      <p>
+        <span class="prompt">guest@<span class="dynamic-server">company</span>-server:~$</span>
+        <span class="command"> [SECURITY CHALLENGE]: Решете задачата за достъп:</span>
+      </p>
 
+      <p style="margin-top: 10px; font-size: 1.2rem;">
+        <span id="math-question"></span> =
+        <input type="number" id="math-answer" placeholder="?" autofocus>
+      </p>
+      <p id="status-msg"></p>
+      <br>
+      <a href="/" id="home-link" class="go-home">> cd /home [AUTHORIZED]</a>
+
+      <script>
+        // --- ЛОГИКА ЗА ПЕРСОНАЛИЗАЦИЯ НА КОМПАНИЯТА ---
+        const urlParams = new URLSearchParams(window.location.search);
+        let companyName = urlParams.get('company');
+        const homeLink = document.getElementById('home-link');
+
+        if (companyName) {
+          const serverName = companyName.toLowerCase().replace(/\s+/g, '-');
+          document.querySelectorAll('.dynamic-server').forEach(span => span.textContent = serverName);
+          homeLink.href = `/?company=${encodeURIComponent(companyName)}`;// ТОВА Е ВАЖНОТО: Правим бутона за връщане също персонализиран
+        }
+
+        // логика за n1, n2 и result си остава същата) ...
+        const n1 = Math.floor(Math.random() * 11), n2 = Math.floor(Math.random() * 11);
+        const isPlus = Math.random() > 0.5;
+        const [num1, num2] = isPlus ? [n1, n2] : [Math.max(n1, n2), Math.min(n1, n2)];
+        const result = isPlus ? num1 + num2 : num1 - num2;
+
+        document.getElementById('math-question').textContent = `${num1} ${isPlus ? '+' : '-'} ${num2}`;
+
+        const inputField = document.getElementById('math-answer');
+        const statusMsg = document.getElementById('status-msg');
+
+        const updateUI = (msg, color, btnDisplay) => {
+          statusMsg.textContent = msg;
+          statusMsg.style.color = inputField.style.borderBottomColor = color;
+          homeLink.style.display = btnDisplay;
+        };
+
+        inputField.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value);
+          const inputLen = e.target.value.length;
+          const resultLen = String(result).length;
+
+          if (val === result) {
+            updateUI("[ ACCESS GRANTED ]", "#24a148", "inline-block");
+          } else if (inputLen >= resultLen) {
+            updateUI("[ ERROR ]: Пробвай пак!", "#da1e28", "none");
+          } else {
+            updateUI("", "#0f62fe", "none");
+          }
+        });
+      </script>
       <div class="status-line">
         <span>EXIT_CODE=404</span> | Process terminated | No matching files found
       </div>
