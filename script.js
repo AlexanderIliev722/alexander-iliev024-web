@@ -1,7 +1,7 @@
-// --- НОВО: 1. Импортваме Transformers.js за локален AI ---
+// --- Импортваме Transformers.js за локален AI ---
 import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.14.0';
 
-// --- НОВО: Форсираме браузъра да зареди гласовете предварително (Fix за Android/iOS) ---
+// --- Форсираме браузъра да зареди гласовете предварително (Fix за Android/iOS) ---
 if ('speechSynthesis' in window) {
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => {
@@ -25,7 +25,7 @@ let aiClassifier = null;
 })();
 // ---------------------------------------------------------
 
-// ВАЖНО: Премахнахме DOMContentLoaded, кодът се изпълнява директно!
+// Премахнахме DOMContentLoaded, кодът се изпълнява директно!
 
 const urlParams = new URLSearchParams(window.location.search);
 let companyName = urlParams.get('company');
@@ -40,7 +40,7 @@ if (companyName) {
     serverSpans.forEach(span => span.textContent = serverName);
 }
 
-// --- НОВО: Логика за предаване на името към 404 страницата ---
+// --- Логика за предаване на името към 404 страницата ---
 const errorLink = document.querySelector('a[href="/error-test"]');
 if (errorLink && companyName) {
     // Променяме линка динамично: от "/error-test" става "/error-test?company=Името"
@@ -52,10 +52,10 @@ const sections = document.querySelectorAll('.section');
 const navBtns = document.querySelectorAll('.nav-btn');
 const contactForm = document.getElementById('contact');
 const successMsg = document.getElementById('success-message');
-const messageField = document.getElementById('field-message'); // Извличаме полето за съобщение
-const aiStatus = document.getElementById('ai-status');         // Извличаме полето за AI статус
+const messageField = document.getElementById('field-message');
+const aiStatus = document.getElementById('ai-status');
 
-// --- НОВО: 2. Локален AI анализ при писане (ОПТИМИЗИРАН С DEBOUNCE) ---
+// --- Локален AI анализ при писане (ОПТИМИЗИРАН С DEBOUNCE) ---
 let aiTimeout; // Променлива, която ще пази таймера
 if (messageField && aiStatus) {
     messageField.addEventListener('input', async (e) => {
@@ -76,7 +76,7 @@ if (messageField && aiStatus) {
 
                 let color = '';
 
-                // НОВО: Добавяме наша логика за NEUTRAL
+                // Добавяне на логика за NEUTRAL
                 if (score < 75) {
                     label = 'NEUTRAL';
                     color = '#8d8d8d'; // Сив цвят за неутрално
@@ -112,25 +112,23 @@ function switchTab(tabId, clickedBtn, isUserClick = true) {
     if (isUserClick) window.scrollTo(0, 0);
 }
 
-// ... (нагоре кодът е същият) ...
-
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const submitBtn = contactForm.querySelector('.submit-btn');
         submitBtn.disabled = true;
-        submitBtn.innerText = '> Executing...'; // Променяме текста за по-добър ефект
+        submitBtn.innerText = '> Executing...';
 
         const name = document.getElementById('field-name').value;
         const email = document.getElementById('field-email').value;
         const message = messageField.value;
 
-        // --- 1. ПОКАЗВАМЕ СЪОБЩЕНИЕТО И ПУСКАМЕ ГЛАСА ВЕДНАГА ---
+        // ПОКАЗВАМЕ СЪОБЩЕНИЕТО И ПУСКАМЕ ГЛАСА ВЕДНАГА
         // Текстът, който ще се покаже на екрана:
         const displayMessage = `Здравейте, ${name}! Съобщението ви е изпратено успешно.`;
         successMsg.querySelector('p').textContent = displayMessage;
 
-        // ВАЖНО: Тези два реда липсваха! Скриват формата и показват зеленото съобщение:
+        // Тези два реда скриват формата и показват зеленото съобщение:
         contactForm.style.display = 'none';
         successMsg.style.display = 'block';
 
@@ -140,10 +138,7 @@ if (contactForm) {
 
             // Текстът, който AI-ът ще ИЗГОВОРИ (на английски):
             const spokenMessage = `Hello, ${name}! Message received successfully. My AI assistant is currently generating an automatic response to your email. Talk to you soon!`;
-            // ХАК ЗА ANDROID: Закачаме го за window, за да не бъде "убит" от паметта на телефона
             window.mobileUtterance = new SpeechSynthesisUtterance(spokenMessage);
-
-            // ХАК ЗА iPHONE: Твърдо задаваме езика ПРЕДИ да търсим гласове
             window.mobileUtterance.lang = 'en-US';
 
             // Взимаме всички заредени гласове от устройството
@@ -174,7 +169,7 @@ if (contactForm) {
         }
         // -----------------------------------------------------------
 
-        // --- 2. ПРАЩАМЕ ДАННИТЕ КЪМ СЪРВЪРА ВЪВ ФОНА ---
+        // ПРАЩАНЕ НА ДАННИТЕ КЪМ СЪРВЪРА ВЪВ ФОНА
         try {
             const checkFirebase = () => {
                 return new Promise((resolve) => {
@@ -188,22 +183,18 @@ if (contactForm) {
             };
 
             const { db, collection, addDoc, serverTimestamp } = await checkFirebase();
-
-
             const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/s9p18yw8wiqtkryf1s0h04i6akc8wvl3';
-            // --- НОВО: Линкът към твоя Google Apps Script ---
             const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym-decQLHy0OIiiijJe_c-1ArkL2TeOSrqsvp7eHiSTtSwbQY4YsAmxgGo1XnozC5m/exec';
 
-            // Чакаме паралелното изпълнение на ТРИТЕ задачи
-            await Promise.all([
+            await Promise.all([  // Чакаме паралелното изпълнение на трите задачи
 
-                // 1. Запис във Firebase (за историята)
+                // Запис във Firebase (за историята)
                 addDoc(collection(db, 'messages'), {
                     name, email, message,
                     timestamp: serverTimestamp()
                 }),
 
-                // 2. Изпращане към Make.com (за да се задейства AI отговорът на HR-а)
+                // Изпращане към Make.com (за да се задейства AI отговорът на HR-а)
                 fetch(MAKE_WEBHOOK_URL, {
                     method: 'POST',
                     headers: {
@@ -216,10 +207,10 @@ if (contactForm) {
                     })
                 }),
 
-                // 3. --- НОВО: Изпращане към Google Apps Script (Безкрайни имейли + Таблица) ---
+                // Изпращане към Google Apps Script (Безкрайни имейли + Таблица)
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // ВАЖНО: Това предотвратява CORS грешки в браузъра!
+                    mode: 'no-cors', // Това предотвратява CORS грешки в браузъра!
                     headers: {
                         'Content-Type': 'application/json'
                     },

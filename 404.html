@@ -178,7 +178,6 @@
       color: #da1e28;
     }
 
-    /* Стилизиране на математическото поле */
     #math-answer {
       background: transparent;
       border: none;
@@ -244,7 +243,7 @@
       <a href="/" id="home-link" class="go-home">> cd /home [AUTHORIZED]</a>
 
       <script>
-        // --- ЛОГИКА ЗА ПЕРСОНАЛИЗАЦИЯ НА КОМПАНИЯТА ---
+        // Логика за персонализация на компанията
         const urlParams = new URLSearchParams(window.location.search);
         let companyName = urlParams.get('company');
         const homeLink = document.getElementById('home-link');
@@ -252,10 +251,10 @@
         if (companyName) {
           const serverName = companyName.toLowerCase().replace(/\s+/g, '-');
           document.querySelectorAll('.dynamic-server').forEach(span => span.textContent = serverName);
-          homeLink.href = `/?company=${encodeURIComponent(companyName)}`;// ТОВА Е ВАЖНОТО: Правим бутона за връщане също персонализиран
+          homeLink.href = `/?company=${encodeURIComponent(companyName)}`;// Правим бутона за връщане също персонализиран
         }
 
-        // логика за n1, n2 и result си остава същата) ...
+        // Логика за n1, n2 и result
         const n1 = Math.floor(Math.random() * 11), n2 = Math.floor(Math.random() * 11);
         const isPlus = Math.random() > 0.5;
         const [num1, num2] = isPlus ? [n1, n2] : [Math.max(n1, n2), Math.min(n1, n2)];
