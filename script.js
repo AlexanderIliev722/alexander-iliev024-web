@@ -48,7 +48,8 @@ const successMsg = document.getElementById('success-message');
 const messageField = document.getElementById('field-message'); // Извличаме полето за съобщение
 const aiStatus = document.getElementById('ai-status');         // Извличаме полето за AI статус
 
-// --- НОВО: 2. Локален AI анализ при писане ---
+// --- НОВО: 2. Локален AI анализ при писане (ОПТИМИЗИРАН С DEBOUNCE) ---
+let aiTimeout; // Променлива, която ще пази таймера
 if (messageField && aiStatus) {
     messageField.addEventListener('input', async (e) => {
         const text = e.target.value;
@@ -56,29 +57,33 @@ if (messageField && aiStatus) {
             if (aiClassifier && text.length < 5) aiStatus.innerText = '[AI Module]: Ready. Local inference active. 🟢';
             return;
         }
+        aiStatus.innerText = '[AI Module]: Waiting for typing to pause...';
+        clearTimeout(aiTimeout);// Изчистваме стария таймер при всяко ново натискане на клавиш
 
-        aiStatus.innerText = '[AI Module]: Analyzing...';
-        try {
-            const result = await aiClassifier(text);
-            let label = result[0].label; // Взимаме оригиналния етикет (POSITIVE/NEGATIVE)
-            const score = Math.round(result[0].score * 100); // Взимаме процента сигурност
+        aiTimeout = setTimeout(async () => {
+            aiStatus.innerText = '[AI Module]: Analyzing...';
+            try {
+                const result = await aiClassifier(text);
+                let label = result[0].label; // Взимаме оригиналния етикет (POSITIVE/NEGATIVE)
+                const score = Math.round(result[0].score * 100); // Взимаме процента сигурност
 
-            let color = '';
+                let color = '';
 
-            // НОВО: Добавяме наша логика за NEUTRAL
-            if (score < 75) {
-                label = 'NEUTRAL';
-                color = '#8d8d8d'; // Сив цвят за неутрално
-            } else if (label === 'POSITIVE') {
-                color = '#24a148'; // Зелен цвят за позитивно
-            } else {
-                color = '#fa4d56'; // Червен цвят за негативно
+                // НОВО: Добавяме наша логика за NEUTRAL
+                if (score < 75) {
+                    label = 'NEUTRAL';
+                    color = '#8d8d8d'; // Сив цвят за неутрално
+                } else if (label === 'POSITIVE') {
+                    color = '#24a148'; // Зелен цвят за позитивно
+                } else {
+                    color = '#fa4d56'; // Червен цвят за негативно
+                }
+
+                aiStatus.innerHTML = `[AI Analysis]: Intent is <span style="color: ${color}">${label} (${score}%)</span>. Local processing.`;
+            } catch (err) {
+                aiStatus.innerText = '[AI Module]: Analysis error.';
             }
-
-            aiStatus.innerHTML = `[AI Analysis]: Intent is <span style="color: ${color}">${label} (${score}%)</span>. Local processing.`;
-        } catch (err) {
-            aiStatus.innerText = '[AI Module]: Analysis error.';
-        }
+        }, 800); // 800 милисекунди изчакване
     });
 }
 // ---------------------------------------------
@@ -105,13 +110,15 @@ function switchTab(tabId, clickedBtn, isUserClick = true) {
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const submitBtn = contactForm.querySelector('.submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = '> Executing...'; // Променяме текста за по-добър ефект
 
         const name = document.getElementById('field-name').value;
         const email = document.getElementById('field-email').value;
         const message = messageField.value;
 
         // --- 1. ПОКАЗВАМЕ СЪОБЩЕНИЕТО И ПУСКАМЕ ГЛАСА ВЕДНАГА ---
-
         // Текстът, който ще се покаже на екрана:
         const displayMessage = `Здравейте, ${name}! Съобщението ви е изпратено успешно.`;
         successMsg.querySelector('p').textContent = displayMessage;
@@ -205,12 +212,16 @@ if (contactForm) {
 
             contactForm.reset();
             if (aiStatus) aiStatus.innerText = '[AI Module]: Ready. Local inference active. 🟢';
+            submitBtn.disabled = false;
+            submitBtn.innerText = '> ./send_message.sh';
 
         } catch (error) {
             console.error('Грешка:', error);
             successMsg.style.display = 'none';
             contactForm.style.display = 'block';
             alert('Имаше проблем с изпращането към сървъра. Моля, опитайте пак.');
+            submitBtn.disabled = false;
+            submitBtn.innerText = '> ./send_message.sh';
         }
     });
 }
