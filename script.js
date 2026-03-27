@@ -1,6 +1,13 @@
 // --- НОВО: 1. Импортваме Transformers.js за локален AI ---
 import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.14.0';
 
+// --- НОВО: Форсираме браузъра да зареди гласовете предварително (Fix за Android/iOS) ---
+if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+    };
+}
 let aiClassifier = null;
 
 // Асинхронно зареждане на AI модела във фона
@@ -129,24 +136,38 @@ if (contactForm) {
 
         if ('speechSynthesis' in window) {
             console.log("Гласовият модул е активен. Опит за прочитане на английски...");
-
-            // Спираме предишни гласове
-            window.speechSynthesis.cancel();
+            window.speechSynthesis.cancel();// Спираме предишни гласове
 
             // Текстът, който AI-ът ще ИЗГОВОРИ (на английски):
             const spokenMessage = `Hello, ${name}! Message received successfully. My AI assistant is currently generating an automatic response to your email. Talk to you soon!`;
+            // ХАК ЗА ANDROID: Закачаме го за window, за да не бъде "убит" от паметта на телефона
+            window.mobileUtterance = new SpeechSynthesisUtterance(spokenMessage);
 
-            const utterance = new SpeechSynthesisUtterance(spokenMessage);
+            // ХАК ЗА iPHONE: Твърдо задаваме езика ПРЕДИ да търсим гласове
+            window.mobileUtterance.lang = 'en-US';
 
-            // Слагаме английски език (en-US за американски или en-GB за британски акцент)
-            utterance.lang = 'en-GB';
+            // Взимаме всички заредени гласове от устройството
+            let voices = window.speechSynthesis.getVoices();
+            // Филтрираме САМО английските гласове, за да не се бърка с български
+            let englishVoices = voices.filter(v => v.lang.startsWith('en'));
 
-            // Правим го да звучи малко по-естествено (леко по-бавно)
-            utterance.rate = 0.95;
-            utterance.pitch = 1.0;
-            utterance.volume = 1.0;
+            if (englishVoices.length > 0) {
+                // Търсим "премиум" гласове (Daniel за Apple, Google за Android)
+                let premiumVoice = englishVoices.find(v => v.name.includes('Daniel') ||
+                    v.name.includes('Samantha') ||
+                    v.name.includes('UK English') ||
+                    v.name.includes('US English'));
 
-            window.speechSynthesis.speak(utterance);
+                window.mobileUtterance.voice = premiumVoice || englishVoices[0];
+
+                // ВАЖНО ЗА SAFARI: Езикът на изречението трябва да съвпада 1:1 с езика на избрания глас
+                window.mobileUtterance.lang = window.mobileUtterance.voice.lang;
+            }
+            window.mobileUtterance.rate = 1.0;
+            window.mobileUtterance.pitch = 1.0;
+            window.mobileUtterance.volume = 1.0;
+
+            window.speechSynthesis.speak(window.mobileUtterance);
         }
         else {
             console.warn("Този браузър не поддържа SpeechSynthesis.");
