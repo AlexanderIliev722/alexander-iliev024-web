@@ -183,10 +183,10 @@ if (contactForm) {
             };
 
             const { db, collection, addDoc, serverTimestamp } = await checkFirebase();
-            const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/s9p18yw8wiqtkryf1s0h04i6akc8wvl3';
+            /*const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/s9p18yw8wiqtkryf1s0h04i6akc8wvl3';*/
             const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbym-decQLHy0OIiiijJe_c-1ArkL2TeOSrqsvp7eHiSTtSwbQY4YsAmxgGo1XnozC5m/exec';
 
-            await Promise.all([  // Чакаме паралелното изпълнение на трите задачи
+            await Promise.all([  // Чакаме паралелното изпълнение на двете задачи
 
                 // Запис във Firebase (за историята)
                 addDoc(collection(db, 'messages'), {
@@ -194,23 +194,10 @@ if (contactForm) {
                     timestamp: serverTimestamp()
                 }),
 
-                // Изпращане към Make.com (за да се задейства AI отговорът на HR-а)
-                fetch(MAKE_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "name": name,
-                        "email": email,
-                        "message": message
-                    })
-                }),
-
-                // Изпращане към Google Apps Script (Безкрайни имейли + Таблица)
+                // Изпращане към Google Apps Script (AI Отговор + Известие до теб + Google Sheets бекъп таблица)
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Това предотвратява CORS грешки в браузъра!
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json'
                     },

@@ -57,7 +57,8 @@ nav {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 950px;
+    /* Changed from 1000px so lines of text aren't too long */
     margin: 40px auto;
     background-color: var(--bg-panel);
     padding: 30px;
@@ -191,13 +192,17 @@ textarea:focus {
 
 .absolute-image {
     position: absolute;
-    bottom: -30px;
-    right: -320px;
-    max-width: 220px;
+    bottom: -20px;
+    /*it was -30px*/
+    right: -235px;
+    max-width: 200px;
 }
 
 .floating-image {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+    position: absolute;
+    /*it was fixed*/
+    bottom: -20px;
+    /*it was 30px*/
+    right: -260px;
+    /*it was 30px*/
 }
